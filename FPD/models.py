@@ -51,13 +51,15 @@ class Farmer(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
-    phoneNo = models.IntegerField(max_length=255, unique=True)
-
+    phoneNo = models.IntegerField(unique=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     objects = UserProfileManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
+
 
     def get_full_name(self):
         '''Retrieve full name of user'''
@@ -72,7 +74,7 @@ class Farmer(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         '''return str representation of user'''
 
-        return self.email
+        return self.name
 
 
 class Pest(models.Model):
@@ -84,6 +86,12 @@ class Pest(models.Model):
     color = models.CharField(max_length=255)
     habitat = models.CharField(max_length=255)
 
+    def __str__(self):
+        '''return str representation of user'''
+
+        return self.name
+
+
 
 class Crop(models.Model):
     '''Database model for users in the system'''
@@ -94,6 +102,12 @@ class Crop(models.Model):
     commonName = models.CharField(max_length=255)
     family = models.CharField(max_length=255)
 
+    def __str__(self):
+        '''return str representation of user'''
+
+        return self.commonName
+
+
 
 class Farm(models.Model):
     '''Database model for farms in the system'''
@@ -102,11 +116,21 @@ class Farm(models.Model):
     crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
 
+    def __str__(self):
+        '''return str representation of user'''
+
+        return str(self.owner)+"'s farm"
+
 
 class Solution(models.Model):
     '''Database model for farms in the system'''
 
     solution = models.CharField(max_length=255)
+
+    def __str__(self):
+        '''return str representation of user'''
+
+        return self.solution
 
 
 class ControlMeasure(models.Model):
@@ -114,7 +138,12 @@ class ControlMeasure(models.Model):
 
     crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
     pest = models.ForeignKey(Pest, on_delete=models.CASCADE)
-    solutions = models.ForeignKey(Solution, on_delete=models.CASCADE)
+    solutions = models.ManyToManyField(Solution)
+
+    def __str__(self):
+        '''return str representation of user'''
+
+        return self.crop +" " + self.pest
 
 
 class History(models.Model):
@@ -122,8 +151,13 @@ class History(models.Model):
     pest = models.ForeignKey(Pest, on_delete=models.CASCADE)
     crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    accuracy = models.DecimalField(decimal_places=4)
+    accuracy = models.DecimalField(max_digits=6,decimal_places=4)
     pestImage = models.ImageField(upload_to=upload_image_path)
+
+    def __str__(self):
+        '''return str representation of user'''
+
+        return self.farmer
 
 
 

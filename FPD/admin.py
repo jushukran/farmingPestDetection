@@ -7,18 +7,11 @@ admin.site.register(Crop)
 admin.site.register(Farmer)
 admin.site.register(Farm)
 admin.site.register(History)
+admin.site.register(Solution)
 admin.site.register(ControlMeasure)
 
-class SolutionInLine(admin.StackedInline) :
 
-    model = Solution
 
-class ControlMeasureAdmin(admin.ModelAdmin) :
-    inlines = [
-        SolutionInLine
-    ]
-
-admin.site.register(ControlMeasureAdmin)
 
 
 
