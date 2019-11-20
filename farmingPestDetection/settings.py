@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FPD.apps.FpdConfig',
+    "geoposition",
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL ='FPD.Farmer'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "staticProject"),
+]
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY = ''

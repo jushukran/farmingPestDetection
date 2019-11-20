@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 import random
 from datetime import datetime
 import os
-
+from geoposition.fields import GeopositionField
 
 def upload_image_path(instance, filename):
     now = datetime.now() #
@@ -18,7 +18,7 @@ class UserProfileManager(BaseUserManager):
     '''
     Manager for user profiles'''
 
-    def create_user(self, email, name, password=None):
+    def create_user(self, email, name, phoneNo, password=None):
         '''create a new user profile'''
 
 
@@ -26,12 +26,12 @@ class UserProfileManager(BaseUserManager):
             raise ValueError("User must have an email address")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name)
-
+        user = self.model(email=email, name=name, phoneNo=phoneNo)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
+
 
     def create_superuser(self, email, name, password):
         '''creating and saving a new superuser'''
@@ -114,7 +114,7 @@ class Farm(models.Model):
 
     owner = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
-    location = models.CharField(max_length=255)
+    location = GeopositionField()
 
     def __str__(self):
         '''return str representation of user'''

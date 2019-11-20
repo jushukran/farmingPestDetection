@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<form method="POST" action="">{% csrf_token %}
+    {{ form.as_p }}
+<button type="submit" class="btn btn-rose">Help Me!</button>
+</form>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+    {% if farms %}
+
+   <div class="content">
+
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <div class="col-lg-6 col-md-12">
+
+              <div class="card">
+
+                <div class="card-header card-header-text card-header-warning">
+
+                  <div class="card-text">
+
+                    <h4 class="card-title">My Farms</h4>
+
+                    <p class="card-category">Here is a list of your farms and the main crop/p>
+
+                  </div>
+
+                </div>
+
+                <div class="card-body table-responsive">
+
+                  <table class="table table-hover">
+
+                    <thead class="text-warning">
+
+                      <tr><th>ID</th>
+
+                      <th>Location</th>
+
+                      <th>Main Crop</th>
+
+
+                    </tr></thead>
+
+                    <tbody>
+                    {% for farm in farms %}
+                      <tr>
+
+
+                        <td>{{ farm.id }}</td>
+
+                        <td>{{ farm.location }}</td>
+
+
+                        <td>{{ farm.crop }}</td>
+
+
+                      </tr>
+                        {% endfor %}
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+       <button class="btn btn-primary btn-lg" ><a href="{% url 'register_farm' %}">Click Here to Register a New Farm</a></button>
+        <a href="{% url 'pest_form' %}">I have a pest problem!</a>
+    {% else %}
+        <p>You have no farms registered yet!</p>
+        <a href="{% url 'register_farm' %}">Click Here to Register a Farm</a>
+    {% endif %}
+
+{% endblock %}

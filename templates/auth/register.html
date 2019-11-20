@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+
+
+    <div class="content">
+
+        <div class="container-fluid">
+
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <form id="RegisterValidation" action="" method="post" novalidate="novalidate">{% csrf_token %}
+
+                <div class="card ">
+
+                  <div class="card-header card-header-rose card-header-icon">
+
+                    <div class="card-icon">
+
+                      <i class="material-icons">mail_outline</i>
+
+                    </div>
+
+                    <h4 class="card-title">Register Form</h4>
+
+                  </div>
+
+                  <div class="card-body ">
+
+                    <div class="form-group bmd-form-group">
+
+                      <label for="exampleEmail" > Email Address *</label>
+
+                        {{ form.email }}
+
+                    </div>
+                      <div class="form-group bmd-form-group">
+
+                      <label for="name" > Name *</label>
+
+                        {{ form.name }}
+
+                    </div>
+                      <div class="form-group bmd-form-group">
+
+                      <label for="pn" > Phone Number *:</label>
+
+                        {{ form.phoneNo }}
+
+                    </div>
+
+                    <div class="form-group bmd-form-group">
+
+                      <label for="examplePassword" > Password *</label>
+
+                        {{ form.password }}
+
+                    </div>
+
+                    <div class="form-group bmd-form-group">
+
+                      <label for="examplePassword1" > Confirm Password *</label>
+
+                        {{ form.password2 }}
+
+                    </div>
+
+                    <div class="category form-category">* Required fields</div>
+
+                  </div>
+
+                  <div class="card-footer text-right">
+
+
+                    <button type="submit" class="btn btn-rose">Register</button>
+
+                  </div>
+
+                </div>
+
+              </form>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+{% endblock %}

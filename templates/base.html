@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+{% include 'base/css.html' %}
+</head>
+<body>
+<div class="wrapper">
+    {% include 'base/sidebar.html' %}
+<div class="main-panel">
+    {% include 'base/navbar.html' %}
+    <div class="content">
+     {% block content %}
+     {% endblock %}
+    </div>
+</div>
+</div>
+
+
+
+    {% include 'base/js.html' %}
+</body>
+
+</html>
