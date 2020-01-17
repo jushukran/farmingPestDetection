@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Farm, History
+from .models import PestSearch
 
 
 class LoginForm(forms.Form):
@@ -91,12 +91,7 @@ class RegisterForm(forms.Form):
         return data
 
 
-class FarmRegistration(forms.ModelForm):
-    class Meta:
-        model = Farm
-        exclude = ['owner']
-
 class PestQuery(forms.ModelForm):
     class Meta:
-        model = History
+        model = PestSearch
         exclude = ['pest','farmer','timestamp','accuracy']

@@ -1,4 +1,5 @@
-<div class="sidebar" data-color="rose" data-background-color="black" >
+{% load static %}
+<div class="sidebar" data-color="rose" data-background-color="black" data-image="{%static "img/bgimg.jpg"%}" >
     <div class="logo">
         <a href="/" class="simple-text logo-mini">
             PM
@@ -47,5 +48,43 @@
                 </div>
             </div>
         </div>
+    <ul class="nav">
+          <li class="nav-item active ">
+            <a class="nav-link" href="../../examples/dashboard.html">
+              <i class="material-icons">toys</i>
+              <p> Farm Information </p>
+            </a>
+          </li>
+
+                  <li class="nav-item ">
+            <a class="nav-link" href="../../examples/dashboard.html">
+              <i class="material-icons">emoji_nature</i>
+              <p> Pest management </p>
+            </a>
+          </li>
+
+                  <li class="nav-item ">
+            <a class="nav-link" href="../../examples/dashboard.html">
+              <i class="material-icons">local_florist</i>
+              <p> General Crop Data </p>
+            </a>
+          </li>
+
+                          <li class="nav-item ">
+            <a class="nav-link" href="../../examples/dashboard.html">
+              <i class="material-icons">adb</i>
+              <p> General pest Data </p>
+            </a>
+          </li>
+
+                          <li class="nav-item ">
+            <a class="nav-link" href="../../examples/dashboard.html">
+              <i class="material-icons">info</i>
+              <p> About the system </p>
+            </a>
+          </li>
+
+        </ul>
     </div>
+<div class="sidebar-background" style="background-image: url('{%static "img/bgimg.jpg"%}') "></div>
 </div>

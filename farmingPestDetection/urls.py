@@ -17,15 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from FPD.views import HomePage , LoginPage , RegisterPage,RegisterFarmPage, PestsPage
+from FPD.views import HomePage , LoginPage , PestsPage ,DashboardPage
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomePage, name='home'),
     url(r'^login/$', LoginPage, name='login'),
-    url(r'^register/$', RegisterPage, name='register'),
-    url(r'^register_farm/$', RegisterFarmPage, name='register_farm'),
+    url(r'^dashboard/$', DashboardPage, name='dashboard'),
     url(r'^pest_form/$', PestsPage, name='pest_form'),
 
 

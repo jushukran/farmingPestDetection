@@ -12,7 +12,19 @@ def upload_image_path(instance, filename):
     name, ext = os.path.splitext(os.path.basename(filename))
     return "pest_images/{year}/{month}/{day}/{randint}{ext}".format(randint=randint, ext=ext, year=now.strftime("%Y"),
                                                                     month=now.strftime("%m"), day=now.strftime("%d"))
+def upload_image_path2(instance, filename):
+    now = datetime.now() #
+    randint=random.randint(1,99999999)
+    name, ext = os.path.splitext(os.path.basename(filename))
+    return "crop_images/{year}/{month}/{day}/{randint}{ext}".format(randint=randint, ext=ext, year=now.strftime("%Y"),
+                                                                    month=now.strftime("%m"), day=now.strftime("%d"))
 
+def upload_image_path3(instance, filename):
+    now = datetime.now() #
+    randint=random.randint(1,99999999)
+    name, ext = os.path.splitext(os.path.basename(filename))
+    return "pest1_images/{year}/{month}/{day}/{randint}{ext}".format(randint=randint, ext=ext, year=now.strftime("%Y"),
+                                                                    month=now.strftime("%m"), day=now.strftime("%d"))
 
 class UserProfileManager(BaseUserManager):
     '''
@@ -80,11 +92,11 @@ class Farmer(AbstractBaseUser, PermissionsMixin):
 class Pest(models.Model):
     '''Database model for users in the system'''
 
-    name = models.CharField(max_length=255)
-    size = models.CharField(max_length=255)
-    behaviour = models.CharField(max_length=255)
-    color = models.CharField(max_length=255)
-    habitat = models.CharField(max_length=255)
+    commonName = models.CharField(max_length=255)
+    scientificName = models.CharField(max_length=255)
+    description = models.TextField(max_length=2550, null=True)
+    damage = models.CharField(max_length=255)
+    pestImage = models.ImageField(upload_to=upload_image_path3, null=True)
 
     def __str__(self):
         '''return str representation of user'''
@@ -92,40 +104,11 @@ class Pest(models.Model):
         return self.name
 
 
-
-class Crop(models.Model):
-    '''Database model for users in the system'''
-
-    description = models.CharField(max_length=255)
-    threat = models.ManyToManyField(Pest)
-    species = models.CharField(max_length=255)
-    commonName = models.CharField(max_length=255)
-    family = models.CharField(max_length=255)
-
-    def __str__(self):
-        '''return str representation of user'''
-
-        return self.commonName
-
-
-
-class Farm(models.Model):
-    '''Database model for farms in the system'''
-
-    owner = models.ForeignKey(Farmer, on_delete=models.CASCADE)
-    crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
-    location = GeopositionField()
-
-    def __str__(self):
-        '''return str representation of user'''
-
-        return str(self.owner)+"'s farm"
-
-
 class Solution(models.Model):
     '''Database model for farms in the system'''
 
     solution = models.CharField(max_length=255)
+
 
     def __str__(self):
         '''return str representation of user'''
@@ -136,7 +119,6 @@ class Solution(models.Model):
 class ControlMeasure(models.Model):
     '''Database model for farms in the system'''
 
-    crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
     pest = models.ForeignKey(Pest, on_delete=models.CASCADE)
     solutions = models.ManyToManyField(Solution)
 
@@ -146,10 +128,8 @@ class ControlMeasure(models.Model):
         return self.crop +" " + self.pest
 
 
-class History(models.Model):
+class PestSearch(models.Model):
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
-    pest = models.ForeignKey(Pest, on_delete=models.CASCADE)
-    crop = models.ForeignKey(Crop, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     accuracy = models.DecimalField(max_digits=6,decimal_places=4)
     pestImage = models.ImageField(upload_to=upload_image_path)
